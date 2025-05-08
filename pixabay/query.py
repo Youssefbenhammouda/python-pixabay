@@ -17,8 +17,9 @@ class query:
     def __init__(self, params):
         self.params = params
         self.cache = []
-        self._getPage(0)
         self.headers = {}
+        self._getPage(0)
+        
 
     ##
     # Get lenght of fonded images
