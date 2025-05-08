@@ -18,6 +18,7 @@ class query:
         self.params = params
         self.cache = []
         self._getPage(0)
+        self.headers = {}
 
     ##
     # Get lenght of fonded images
@@ -81,7 +82,7 @@ class query:
         )
 
         r = requests.get(uri)
-
+        self.headers = r.headers
         if (r.status_code != 200):
             raise ValueError('Pixabay return status code != 200 for uri', uri, 'Invalid parameters?')
 
@@ -96,6 +97,13 @@ class query:
         for i in range(len(data['hits'])):
             self._cacheInsert(page * self.params.perPage + i, data['hits'][i])
     
+    def get_headers(self):
+        """
+        Get headers from last request
+        @return dict of headers
+        """
+        return self.headers
+
     ##
     # Download image with index to cache
     # @param index index of image
